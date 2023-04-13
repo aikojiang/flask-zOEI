@@ -1,17 +1,8 @@
-from flask import Flask, jsonify
-import os
-from openai import API
+from steamship import Steamship
 
-app = Flask(__name__)
+# TODO: Replace with your package and instance handle below
+instance = Steamship.use("PACKAGE_HANDLE", "INSTANCE_HANDLE", config={
+    "default_name": "Beautiful"
+})
 
-openai.api_key = "openai.api_key = ""d8883758-5f2c-4c93-9a2d-d87713f26d0b"""
-
-@app.route("/")
-def home():
-    prompt = "Generate your website content here"
-    response = openai.Completion.create(engine="davinci", prompt=prompt, max_tokens=100)
-    content = response.choices[0].text
-    return render_template("index.html", content=content)
-
-if __name__ == "__main__":
-    app.run(debug=True)
+print(instance.invoke("greet"))
